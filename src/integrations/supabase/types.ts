@@ -14,7 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blood_requests: {
+        Row: {
+          blood_group: string
+          contact: string | null
+          created_at: string
+          hospital: string | null
+          id: string
+          notes: string | null
+          notified_count: number
+          status: string
+          units: number
+          urgency: string
+        }
+        Insert: {
+          blood_group: string
+          contact?: string | null
+          created_at?: string
+          hospital?: string | null
+          id?: string
+          notes?: string | null
+          notified_count?: number
+          status?: string
+          units?: number
+          urgency?: string
+        }
+        Update: {
+          blood_group?: string
+          contact?: string | null
+          created_at?: string
+          hospital?: string | null
+          id?: string
+          notes?: string | null
+          notified_count?: number
+          status?: string
+          units?: number
+          urgency?: string
+        }
+        Relationships: []
+      }
+      donor_notifications: {
+        Row: {
+          created_at: string
+          donor_email: string
+          donor_id: string
+          donor_name: string
+          id: string
+          request_id: string
+          responded_at: string | null
+          sent_at: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          donor_email: string
+          donor_id: string
+          donor_name: string
+          id?: string
+          request_id: string
+          responded_at?: string | null
+          sent_at?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          donor_email?: string
+          donor_id?: string
+          donor_name?: string
+          id?: string
+          request_id?: string
+          responded_at?: string | null
+          sent_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "donor_notifications_donor_id_fkey"
+            columns: ["donor_id"]
+            isOneToOne: false
+            referencedRelation: "donors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "donor_notifications_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "blood_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      donors: {
+        Row: {
+          blood_group: string
+          created_at: string
+          email: string
+          id: string
+          last_donation_days: number
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          blood_group: string
+          created_at?: string
+          email: string
+          id?: string
+          last_donation_days?: number
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          blood_group?: string
+          created_at?: string
+          email?: string
+          id?: string
+          last_donation_days?: number
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
